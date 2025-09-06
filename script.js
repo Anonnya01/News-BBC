@@ -10,6 +10,10 @@ const bookmarkContainer =document.getElementById("bookmark-cont")
 
 let bookmarks =[]
 
+const bookmarkCount =document.getElementById("count")
+
+// ------------count------//
+
 // ----------get Category-----------//
 const loadCategory = () => {
   fetch("https://news-api-fs.vercel.app/api/categories")
@@ -92,6 +96,7 @@ const loadNews = (topicId) => {
   const showNews=(articles)=>{
    newsContainer.innerHTML=''
   articles.forEach(article =>{
+   
    newsContainer.innerHTML +=`
    <div class="border-gray-300 p-1 rounded-lg shadow-sm m-2">
       <div class="p-1">
@@ -112,47 +117,50 @@ const loadNews = (topicId) => {
     // console.log(e.targe);
     if(e.target.innerText === "Bookmark"){
         // console.log('clicked');
-        
-        handleBookmark(e)
+        handleBookmarks(e)
     }
   })
 
 //   -----------handle bookmarks---//
-  const handleBookmark =(e)=>{
+  const handleBookmarks =(e)=>{
 const title=e.target.parentNode.children[0].innerText
         const id =e.target.parentNode.id
-        // console.log(artId);  
-
+        // console.log(id);  
         bookmarks.push({
-           Title: title,
-           Id: id
+           title: title,
+           id:id
         })
-    //   console.log(bookmarks);
+      // console.log(bookmarks);
       showBookmarks(bookmarks)
+      
   }
 
 //   ------------show bookmarks--------//
 
 const showBookmarks = (bookmarks)=>{
+  console.log(bookmarks);
+  
 bookmarkContainer.innerHTML=''
-
 bookmarks.forEach(bookmark=>{
   bookmarkContainer.innerHTML +=`
   <div class="my-2 border">
-     <h1>${bookmark.Title}</h1>
-     <button onClick="deleteBookmark(${bookmark.Id})" class="btn my-2 btn-xs">Delete</button>
+     <h1>${bookmark.title}</h1>
+     <button onclick="handleDelete('${bookmark.id}')" class="btn btn-xs">Delete</button>
   </div>
-  
   `
 })
+bookmarkCount.innerText = bookmarks.length
 
 }
-const deleteBookmark =(bookId)=>{
- const bookmarkId=bookId.id;
- console.log(bookmarkId);
- bookmarks.filter(bookmark)
- 
+// ------------delete----------//
+const handleDelete= (bookId)=>{
+// console.log(bookId);
+const filteredBook= bookmarks.filter(bookmark =>bookmark.id !== bookId)
+// console.log(filteredBook);
+bookmarks =filteredBook
+showBookmarks(bookmarks)
 }
+
 
 loadCategory();
 loadNews('main')
