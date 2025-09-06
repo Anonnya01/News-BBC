@@ -64,11 +64,13 @@ const showCategory = (categories) => {
     //------removing---------//
     const removeBorder = document.querySelectorAll("li");
     removeBorder.forEach((li) => {
+   
       li.classList.remove("border-b-4");
     });
     // ----adding----//
     if (e.target.localName === "li") {
         console.log(e.target);
+           showLoading()  //=====loading⭐⭐
       e.target.classList.add("border-b-4");
       loadNews(e.target.id); //---calling load news⭐⭐
     }
@@ -85,15 +87,20 @@ const loadNews = (topicId) => {
   .then(res=>res.json())
   .then(data =>{
     //   console.log(data.articles);
-      showNews(data.articles) 
+      showNews(data.articles)   //❌❌❌❌----error----//
   })
   .catch(err=>{
-    console.log(err);
+    // console.log(err);
+    showError()
   })
 };
 
 // -----------show News-----------//
   const showNews=(articles)=>{
+    if(articles.length === 0) { //for empty-----//
+      emptyText()
+      return
+    }
    newsContainer.innerHTML=''
   articles.forEach(article =>{
    
@@ -161,6 +168,26 @@ bookmarks =filteredBook
 showBookmarks(bookmarks)
 }
 
+// -----------loading-----------//
+const showLoading= ()=>{
+  newsContainer.innerHTML=`
+  <div class="p-3 bg-red-600">Loading...</div>
+  `
+}
+
+// ------------error-------//
+const showError=() =>{
+  newsContainer.innerHTML=`
+  <div class="p-3 bg-red-600">Something went Wrong..❌</div>
+  `
+}
+
+// -----------empty---------
+const emptyText=() =>{
+  newsContainer.innerHTML=`
+  <div class="p-3 bg-blue-600">No News Available</div>
+  `
+}
 
 loadCategory();
 loadNews('main')
