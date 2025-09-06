@@ -10,9 +10,14 @@ const bookmarkContainer =document.getElementById("bookmark-cont")
 
 let bookmarks =[]
 
+// ------------count------//
 const bookmarkCount =document.getElementById("count")
 
-// ------------count------//
+// ----------to open modal---------''
+ const newsModal =document.getElementById("modal-news")
+
+// --------------modal----------//
+const modalContainer =document.getElementById("modal-data")
 
 // ----------get Category-----------//
 const loadCategory = () => {
@@ -113,6 +118,7 @@ const loadNews = (topicId) => {
       <h1 class=" font-bold">${article.title}</h1>
     <h5 class="text-sm mt-1">${article.time}</h5>
     <button class="btn">Bookmark</button>
+    <button class="btn">Details</button>
       </div>
    </div>
    `
@@ -125,6 +131,10 @@ const loadNews = (topicId) => {
     if(e.target.innerText === "Bookmark"){
         // console.log('clicked');
         handleBookmarks(e)
+    }
+    if(e.target.innerText === "Details"){
+        // console.log('clicked');
+        viewDetails(e)
     }
   })
 
@@ -187,6 +197,39 @@ const emptyText=() =>{
   newsContainer.innerHTML=`
   <div class="p-3 bg-blue-600">No News Available</div>
   `
+}
+
+// ----------view details-------//
+const viewDetails=(e)=>{
+const id =e.target.parentNode.id
+ fetch(`https://news-api-fs.vercel.app/api/news/${id}`)
+.then(res =>res.json()) 
+.then(data =>{
+console.log(data);
+showDetailsModal(data.article)
+
+})
+.catch(err=>{
+  console.log(err);
+  
+})
+// newsModal.showModal() //---show
+}
+
+// -------show modal details-------------//
+
+const showDetailsModal=(article)=>{
+  console.log(article);
+  
+newsModal.showModal()
+modalContainer.innerHTML=`
+<h1>${article.title}</h1>
+<img src="${article.images[0].url}"/>
+ <a href="${article.url}">link:${article.url}</a>
+<p>${article.content.join('')}</p>
+
+`
+
 }
 
 loadCategory();

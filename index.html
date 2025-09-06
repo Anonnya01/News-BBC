@@ -20,42 +20,60 @@
     <title>BBC News Bangla</title>
 
     <style>
-        *{
-              font-family: "Noto Serif Bengali", serif;
-        }
-      
+      * {
+        font-family: "Noto Serif Bengali", serif;
+      }
     </style>
   </head>
   <body>
-      <header>
-        <div class="py-6 bg-red-700">
-             <div class="px-5 mx-auto max-w-7xl"><img src="assets/logo.svg" class="invert" alt="">
-            </div>
+    <header>
+      <div class="py-6 bg-red-700">
+        <div class="px-5 mx-auto max-w-7xl">
+          <img src="assets/logo.svg" class="invert" alt="" />
         </div>
-       
-        <!-- nav -->
-         <nav class="py-2 border-b border-gray-200 shadow-sm">
-            <ul id="topics" class="flex flex-wrap gap-10 px-5 mx-auto text-lg font-semibold max-w-7xl">
-                
-            </ul>
-         </nav>
-      </header> 
+      </div>
 
-      <main  class="grid grid-cols-4 gap-5 px-5 mx-auto mt-5 max-w-7xl">
-        
-        <div id="newsBox" class="grid grid-cols-3 col-span-3 gap-4">
-                <div class="p-3 bg-red-600">Loading...</div>
-        </div>
-        <!-- book -->
+      <!-- nav -->
+      <nav class="py-2 border-b border-gray-200 shadow-sm">
+        <ul
+          id="topics"
+          class="flex flex-wrap gap-10 px-5 mx-auto text-lg font-semibold max-w-7xl"
+        ></ul>
+      </nav>
+    </header>
 
-        <div  class="col-span-1 overflow-hidden border-gray-300 rounded-lg shadow-sm">
-            <div class="p-3 text-white bg-red-600">
-                <h1>bookmark</h1>
-                <p id="count">0</p>
-            </div>
-            <div id="bookmark-cont"></div>
+    <main class="grid grid-cols-4 gap-5 px-5 mx-auto mt-5 max-w-7xl">
+      <div id="newsBox" class="grid grid-cols-3 col-span-3 gap-4">
+        <div class="p-3 bg-red-600">Loading...</div>
+      </div>
+      <!-- book -->
+
+      <div
+        class="col-span-1 overflow-hidden border-gray-300 rounded-lg shadow-sm"
+      >
+        <div class="p-3 text-white bg-red-600">
+          <h1>bookmark</h1>
+          <p id="count">0</p>
         </div>
-      </main>
-      <script src="script.js"></script>  
+        <div id="bookmark-cont"></div>
+      </div>
+    </main>
+
+    <!-- modal -->
+    <!-- Open the modal using ID.showModal() method -->
+    <!-- <button class="btn" onclick="my_modal_1.showModal()">open modal</button> -->
+    <dialog id="modal-news" class="modal">
+     
+      <div class="modal-box">
+            <div id="modal-data"></div>
+          <form method="dialog">
+            <!-- if there is a button in form, it will close the modal -->
+            <button class="btn">Close</button>
+          </form>
+        </div>
+      </div>
+    </dialog>
+   
+    <script src="script.js"></script>
   </body>
 </html>
